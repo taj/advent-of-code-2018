@@ -67,7 +67,7 @@ defmodule AdventOfCode2018.Day01 do
   end
 
   defp read_input() do
-    {:ok, input} = File.read("./lib/day01/test.txt")
+    {:ok, input} = File.read("./lib/day01/input.txt")
 
     String.split(input, "\n") |> Enum.map(&String.to_integer/1)
   end
