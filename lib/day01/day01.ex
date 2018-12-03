@@ -56,14 +56,16 @@ defmodule AdventOfCode2018.Day01 do
   What is the first frequency your device reaches twice?
   """
 
+  # puzzle answer is 576
   def part1() do
     read_input()
-    |> Enum.reduce(0, fn x, acc -> x + acc end) # puzzle answer is 576
+    |> Enum.reduce(0, fn x, acc -> x + acc end)
   end
 
+  # puzzle answer is 77674
   def part2() do
     read_input()
-    |> find_duplicate() # puzzle answer is 77674
+    |> find_duplicate()
   end
 
   defp read_input() do
@@ -74,7 +76,7 @@ defmodule AdventOfCode2018.Day01 do
 
   defp find_duplicate(input, starter \\ [], i \\ 0) do
     Enum.reduce_while(input, starter, fn x, acc ->
-      case Enum.count acc do
+      case Enum.count(acc) do
         0 ->
           {:cont, [x]}
 
@@ -94,7 +96,7 @@ defmodule AdventOfCode2018.Day01 do
 
       list when is_list(list) ->
         IO.inspect("iteration n: #{i}")
-        find_duplicate(input, list, i+1)
+        find_duplicate(input, list, i + 1)
     end
   end
 end

@@ -1,0 +1,12 @@
+{
+  "elixir.projectPath": "",
+  "elixirLS.projectDir": "",
+  "editor.formatOnSave": true,
+  "[elixir]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "editor.formatOnType": true,
+    "editor.acceptSuggestionOnEnter": "on",
+    "files.insertFinalNewline": true
+  },
+}
