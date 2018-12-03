@@ -46,14 +46,16 @@ defmodule AdventOfCode2018.Day02 do
   What letters are common between the two correct box IDs? (In the example above, this is found by removing the differing character from either ID, producing fgij.)
   """
 
+  # puzzle answer is 5952
   def part1() do
     read_input()
-    |> find_checksum() # puzzle answer is 5952
+    |> find_checksum()
   end
 
+  # puzzle answer is krdmtuqjgwfoevnaboxglzjph
   def part2() do
     read_input()
-    |>find_common_ids() # puzzle answer is krdmtuqjgwfoevnaboxglzjph
+    |> find_common_ids()
   end
 
   defp read_input() do
@@ -67,27 +69,29 @@ defmodule AdventOfCode2018.Day02 do
       scans
       |> Enum.map(fn scan ->
         scan
-        |> String.codepoints
-        |> Enum.uniq
+        |> String.codepoints()
+        |> Enum.uniq()
         |> Enum.map(fn c ->
           scan
-          |> String.graphemes
-          |> Enum.count(& &1 == c)
+          |> String.graphemes()
+          |> Enum.count(&(&1 == c))
         end)
         |> Enum.filter(fn count -> count == 2 or count == 3 end)
       end)
       |> Enum.reduce(%{twos: 0, threes: 0}, fn x, acc ->
-        new_two = if Enum.member?(x, 2) do
-          acc.twos + 1
-        else
-          acc.twos
-        end
+        new_two =
+          if Enum.member?(x, 2) do
+            acc.twos + 1
+          else
+            acc.twos
+          end
 
-        new_three = if Enum.member?(x, 3) do
-          acc.threes + 1
-        else
-          acc.threes
-        end
+        new_three =
+          if Enum.member?(x, 3) do
+            acc.threes + 1
+          else
+            acc.threes
+          end
 
         %{twos: new_two, threes: new_three}
       end)
@@ -100,7 +104,7 @@ defmodule AdventOfCode2018.Day02 do
       current_jaro_distance = String.jaro_distance(i, j)
       %{close: current_jaro_distance, id1: i, id2: j}
     end
-    |> Enum.sort_by(&(&1.close))
+    |> Enum.sort_by(& &1.close)
     |> Enum.filter(fn x -> x.close != 1.0 end)
     |> Enum.at(-1)
   end
