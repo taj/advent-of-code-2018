@@ -71,6 +71,18 @@ defmodule AdventOfCode2018.Day04 do
     id * minute
   end
 
+  def part2() do
+    {id, {minute, _}} =
+      read_input()
+      |> get_sleep_times()
+      |> Enum.map(fn {id, intervals} -> {id, intervals |> minutes() |> max_minutes()} end)
+      |> Enum.filter(fn {_, minute} -> minute end)
+      |> Enum.sort_by(fn {_, {_, counter}} -> counter end, &>/2)
+      |> Enum.at(0)
+
+    id * minute
+  end
+
   defp read_input() do
     {:ok, input} = File.read("./lib/day04/input.txt")
 
@@ -137,5 +149,12 @@ defmodule AdventOfCode2018.Day04 do
     |> Enum.flat_map(fn {down_min, up_min} -> for min <- down_min..(up_min - 1), do: min end)
     |> Enum.sort()
     |> Enum.chunk_by(& &1)
+  end
+
+  defp max_minutes(intervals) do
+    intervals
+    |> Enum.map(fn x -> {Enum.at(x, 0), length(x)} end)
+    |> Enum.sort_by(fn {_, count} -> count end, &>/2)
+    |> Enum.at(0)
   end
 end
