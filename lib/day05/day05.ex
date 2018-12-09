@@ -44,20 +44,19 @@ defmodule AdventOfCode2018.Day05 do
   defp polymer_after_reaction(polymer) do
     polymer
     |> Enum.reduce([], fn x, acc ->
-      case acc do
-        [] ->
-          [x]
-
-        [head | tail] = all ->
-          if x != head && String.downcase(x) == String.downcase(head) do
-            tail
-          else
-            [x | all]
-          end
-
-        list ->
-          [x | list]
-      end
+      do_polymer_after_reaction(x, acc)
     end)
   end
+
+  defp do_polymer_after_reaction(x, []), do: [x]
+
+  defp do_polymer_after_reaction(x, [head | tail] = all) do
+    if x != head && String.downcase(x) == String.downcase(head) do
+      tail
+    else
+      [x | all]
+    end
+  end
+
+  defp do_polymer_after_reaction(x, acc), do: [x, acc]
 end
